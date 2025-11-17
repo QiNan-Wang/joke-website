@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>笑话大全 - 每日一笑</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ffa726 100%);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .joke-container {
+            padding: 40px;
+        }
+        
+        .joke {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-left: 5px solid #ff6b6b;
+            transition: transform 0.3s ease;
+        }
+        
+        .joke:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .joke h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        
+        .joke p {
+            color: #666;
+            line-height: 1.6;
+            font-size: 1.1em;
+        }
+        
+        .controls {
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .new-joke-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1em;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .new-joke-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            border-top: 1px solid #eee;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                margin: 10px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .joke-container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>😂 笑话大全</h1>
+            <p>每日一笑，快乐无限！</p>
+        </div>
+        
+        <div class="joke-container" id="jokeContainer">
+            <!-- 笑话内容将通过JavaScript动态加载 -->
+        </div>
+        
+        <div class="controls">
+            <button class="new-joke-btn" onclick="loadRandomJoke()">
+                再来一个笑话 😄
+            </button>
+        </div>
+        
+        <div class="footer">
+            <p>© 2024 笑话大全 - 让生活充满欢笑</p>
+        </div>
+    </div>
+
+    <script>
+        const jokes = [
+            {
+                title: "程序员的笑话",
+                content: "为什么程序员总是分不清万圣节和圣诞节？因为 Oct 31 == Dec 25！"
+            },
+            {
+                title: "数学老师的幽默",
+                content: "数学老师问：『假设你有5个苹果，我拿走3个，你还剩几个？』学生回答：『5个，因为您只是假设。』"
+            },
+            {
+                title: "餐厅趣事",
+                content: "顾客：『服务员，这汤里怎么有只苍蝇？』服务员：『先生，那是我们的特色菜——飞汤！』"
+            },
+            {
+                title: "电脑维修",
+                content: "客户：『我的电脑坏了，开机没反应。』维修员：『你插电了吗？』客户：『啊！我忘了电脑需要电！』"
+            },
+            {
+                title: "时间管理",
+                content: "为什么时间过得这么快？因为它在跑步机上！"
+            },
+            {
+                title: "动物世界",
+                content: "为什么鸡要过马路？因为它想去对面的KFC看看自己的亲戚！"
+            },
+            {
+                title: "学习英语",
+                content: "老师：『用“果然”造句。』学生：『我先吃水果，然后喝水。』老师：『不对！』学生：『哪里不对？水果然后，果然啊！』"
+            },
+            {
+                title: "手机依赖",
+                content: "现代人的三大幻觉：1. 手机在震动 2. 有人敲门 3. 他/她喜欢我"
+            },
+            {
+                title: "减肥计划",
+                content: "我决定开始减肥了！第一步：把减肥计划发朋友圈。第二步：等大家点赞。第三步：吃个宵夜庆祝一下。"
+            },
+            {
+                title: "早起困难户",
+                content: "闹钟叫醒的只是我的躯壳，叫不醒我沉睡的灵魂。"
+            }
+        ];
+
+        function getRandomJoke() {
+            const randomIndex = Math.floor(Math.random() * jokes.length);
+            return jokes[randomIndex];
+        }
+
+        function displayJoke(joke) {
+            const container = document.getElementById('jokeContainer');
+            container.innerHTML = `
+                <div class="joke">
+                    <h3>${joke.title}</h3>
+                    <p>${joke.content}</p>
+                </div>
+            `;
+        }
+
+        function loadRandomJoke() {
+            const joke = getRandomJoke();
+            displayJoke(joke);
+        }
+
+        // 页面加载时显示一个随机笑话
+        document.addEventListener('DOMContentLoaded', function() {
+            loadRandomJoke();
+        });
+    </script>
+</body>
+</html>
